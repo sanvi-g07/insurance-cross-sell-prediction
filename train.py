@@ -84,9 +84,8 @@ def train_model(df):
         X, y, test_size=0.15, stratify=y, random_state=2
     )
  
-    region_rates, region_global_rate = smoothed_target_encode(X_train['Region_Code'], y_train, smoothing=20)
+    region_rates, global_rate = smoothed_target_encode(X_train['Region_Code'], y_train, smoothing=20)
     channel_rates, _ = smoothed_target_encode(X_train['Policy_Sales_Channel'], y_train, smoothing=20)
-    global_rate = y_train.mean()
  
     X_train = apply_target_encoding(X_train, region_rates, channel_rates, global_rate)
     X_test = apply_target_encoding(X_test, region_rates, channel_rates, global_rate)
