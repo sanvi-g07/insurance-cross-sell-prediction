@@ -2,6 +2,24 @@ import pickle
 import pandas as pd
 from train import engineer_features, encode_cat, apply_target_encoding
 
+from fastapi import FastAPI
+import uvicorn
+from typing import Literal
+from pydantic import BaseModel, ConfigDict, Field
+
+class Customer(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    gender: Literal['Male', 'Female']
+    age: int = Field(..., ge=0)
+    drivinglicense: Literal[0, 1]
+    regioncode: int = Field(..., ge=0)
+    previouslyinsured: Literal[0, 1]
+    vehicleage: Literal['< 1 Year', '1-2 Year', '> 2 Years']
+    vehicledamage: Literal['Yes', 'No']
+    annualpremium: float = Field(..., ge=0)
+    policysaleschannel: int = Field(..., ge=0)
+    vintage: int = Field(..., ge=0)
+
 MODEL_FILE = 'insurance_model.bin'
 
 def load_artifacts(filename=MODEL_FILE):
