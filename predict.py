@@ -20,6 +20,10 @@ class Customer(BaseModel):
     policysaleschannel: int = Field(..., ge=0)
     vintage: int = Field(..., ge=0)
 
+class PredictionResponse(BaseModel):
+    convert_prob: float
+    convert: bool
+
 MODEL_FILE = 'insurance_model.bin'
 
 def load_artifacts(filename=MODEL_FILE):
