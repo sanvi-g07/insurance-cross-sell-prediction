@@ -27,6 +27,8 @@ class PredictionResponse(BaseModel):
 
 MODEL_FILE = 'insurance_model.bin'
 
+app = FastAPI(title="insurance-cross-sell-prediction")
+
 def load_artifacts(filename=MODEL_FILE):
     with open(MODEL_FILE, 'rb') as f_in:
         artifacts = pickle.load(f_in)
@@ -51,6 +53,7 @@ def predict_customer(customer, artifacts):
 
     return proba, pred
 
+@app.post("/predict")
 def predict(customer: Customer) -> PredictionResponse:
     artifacts = load_artifacts()
     proba, pred = predict_customer(customer.model_dump(by_alias=True), artifacts)
@@ -64,23 +67,6 @@ def predict(customer: Customer) -> PredictionResponse:
 
 
 if __name__ == '__main__':
-    customer_ex = Customer(
-        gender='Male',
-        age=35,
-        drivinglicense=1,
-        regioncode=28.0,
-        previouslyinsured=0,
-        vehicleage='1-2 Year',
-        vehicledamage='Yes',
-        annualpremium=32000.0,
-        policysaleschannel=26.0,
-        vintage=150,
-    )
-
-    response = predict(customer_ex)
- 
-    print(f'Response probability: {response.convert_prob}')
-    print(f'Convert value: {response.convert}')
-    print(f'Predicted response: {response.convert_response}')
+    uvicorn.run(app, host="0.0.0.0", port=8080)
 
 
