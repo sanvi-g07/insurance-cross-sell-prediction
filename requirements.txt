@@ -1,0 +1,9 @@
+kagglehub
+pandas
+numpy
+scikit-learn
+xgboost
+fastapi
+uvicorn
+pydantic
+requests

@@ -1,0 +1,27 @@
+[project]
+name = "insurance-cross-sell-prediction"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "sanvi-g07", email = "146673251+sanvi-g07@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.141.1",
+    "kagglehub>=1.0.2",
+    "numpy>=2.5.2",
+    "pandas>=3.0.5",
+    "pydantic>=2.13.4",
+    "requests>=2.34.2",
+    "scikit-learn>=1.9.0",
+    "uvicorn>=0.52.4",
+    "xgboost>=3.4.1",
+]
+
+[project.scripts]
+insurance-cross-sell-prediction = "insurance_cross_sell_prediction:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
